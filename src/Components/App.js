@@ -1,41 +1,17 @@
-import React, { useState } from "react";
-import SearchBar from "./SearchBar";
-import axios from "axios";
+import React from "react";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import Comments from "./Comments";
+import Header from "./Header";
 
 const App = () => {
-  const URL = "https://jsonplaceholder.typicode.com/comments";
-
-  const [posts, setPosts] = useState([""]);
-
-  const renderItems = () => {
-    const val = posts.map((item) => {
-      return <div key={item.id}>{item.name}</div>;
-    });
-
-    return val;
-  };
-
-  const onSubmit = (Term) => {
-    // const response = await axios.get(URL, {
-    //   params: {
-    //     postId: Term,
-    //   },
-    // });
-
-    const response = axios
-      .get(URL, {
-        params: {
-          postId: Term,
-        },
-      })
-      .then((res) => {
-        setPosts(res.data);
-      });
-  };
   return (
     <div>
-      <SearchBar onSearchSubmit={onSubmit} />
-      {renderItems()}
+      <BrowserRouter>
+        <div>
+          <Header />
+          <Route path="/Comments" exact component={Comments} />
+        </div>
+      </BrowserRouter>
     </div>
   );
 };
